@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glosario Transversal — Spin</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F5F2EC;
+  --surface: #FFFFFF;
+  --surface2: #EDE9E0;
+  --border: #D8D2C4;
+  --text: #1A1814;
+  --text2: #6B6456;
+  --text3: #9B9080;
+  --green: #1A5C3A;
+  --green-light: #E8F2EC;
+  --red: #8B2020;
+  --red-light: #F9EDED;
+  --amber: #7A4A0A;
+  --amber-light: #FDF4E7;
+  --blue: #1A3A5C;
+  --blue-light: #EBF0F7;
+  --accent: #2D7A50;
+  --tag-border: #C8C0B0;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--text);
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 56px;
+  border-bottom: 1px solid #333;
+}
+.logo {
+  font-family: "DM Mono", monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: #F5F2EC;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.logo span { color: #6FCF97; }
+.header-search {
+  flex: 1;
+  max-width: 420px;
+  position: relative;
+}
+.header-search input {
+  width: 100%;
+  background: #2A2622;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 7px 12px 7px 36px;
+  color: #F5F2EC;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.header-search input::placeholder { color: #777; }
+.header-search input:focus { border-color: #6FCF97; }
+.header-search svg {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #777;
+  pointer-events: none;
+}
+.header-actions { display: flex; gap: 8px; }
+.btn-sm {
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background: transparent;
+  color: #C8C0B0;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.btn-sm:hover { background: #2A2622; color: #F5F2EC; border-color: #666; }
+.btn-sm.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* ── LAYOUT ── */
+.layout { display: flex; min-height: calc(100vh - 56px); }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 1.5rem 0;
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+  overflow-y: auto;
+}
+.sidebar-section { padding: 0 1rem 1.5rem; }
+.sidebar-label {
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--text3);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  padding: 0 4px;
+}
+.sidebar-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--text2);
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  margin-bottom: 2px;
+}
+.sidebar-btn:hover { background: var(--surface2); color: var(--text); }
+.sidebar-btn.active { background: var(--green-light); color: var(--green); font-weight: 500; }
+.sidebar-btn .dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+}
+.dot-green { background: var(--accent); }
+.dot-blue { background: var(--blue); }
+.dot-red { background: var(--red); }
+.dot-gray { background: #888; }
+.dot-amber { background: var(--amber); }
+.sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 0.5rem 1rem 1rem; }
+.count-pill {
+  margin-left: auto;
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  background: var(--surface2);
+  padding: 1px 6px;
+  border-radius: 10px;
+  color: var(--text3);
+}
+
+/* ── MAIN ── */
+.main { flex: 1; padding: 2rem; min-width: 0; }
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+.section-title {
+  font-family: "DM Mono", monospace;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text);
+}
+.section-count {
+  font-family: "DM Mono", monospace;
+  font-size: 12px;
+  color: var(--text3);
+}
+
+/* ── TABLE ── */
+.table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+table { width: 100%; border-collapse: collapse; }
+thead { background: var(--surface2); }
+th {
+  padding: 10px 14px;
+  text-align: left;
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  border-bottom: 1px solid var(--border);
+  font-weight: 500;
+  white-space: nowrap;
+}
+td {
+  padding: 11px 14px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.5;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #FAFAF7; }
+.term { font-weight: 500; color: var(--text); }
+.avoid { color: var(--red); font-size: 12px; }
+.example { color: var(--text2); font-size: 12px; }
+.date { font-family: "DM Mono", monospace; font-size: 11px; color: var(--text3); white-space: nowrap; }
+.tag {
+  display: inline-block;
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid var(--tag-border);
+  background: var(--surface2);
+  color: var(--text2);
+  white-space: nowrap;
+}
+.tag-legal { background: var(--red-light); color: var(--red); border-color: #E8C0C0; }
+.tag-acc { background: var(--blue-light); color: var(--blue); border-color: #C0D0E0; }
+.tag-def { background: var(--amber-light); color: var(--amber); border-color: #E8D0A0; }
+
+tr.legal-row td { background: #FFFBF5; }
+tr.legal-row:hover td { background: #FFF7ED; }
+
+.empty {
+  padding: 3rem 2rem;
+  text-align: center;
+  color: var(--text3);
+  font-family: "DM Mono", monospace;
+  font-size: 13px;
+}
+
+/* ── AI PANEL ── */
+.ai-panel {
+  background: var(--text);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: none;
+}
+.ai-panel.open { display: block; }
+.ai-panel-title {
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6FCF97;
+  margin-bottom: 0.75rem;
+}
+.ai-input-row { display: flex; gap: 8px; }
+.ai-input-row input {
+  flex: 1;
+  background: #2A2622;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 9px 14px;
+  color: #F5F2EC;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  outline: none;
+}
+.ai-input-row input:focus { border-color: #6FCF97; }
+.ai-input-row input::placeholder { color: #666; }
+.btn-ask {
+  background: var(--accent);
+  border: none;
+  border-radius: 6px;
+  padding: 9px 18px;
+  color: #fff;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+.btn-ask:hover { opacity: 0.85; }
+.btn-ask:disabled { opacity: 0.4; cursor: default; }
+.ai-response {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #2A2622;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #E8E0D0;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  display: none;
+}
+.ai-response.visible { display: block; }
+
+
+
+/* ── LEGAL PAGE ── */
+.legal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.legal-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--red-light);
+  border-bottom: 1px solid #E8C8C8;
+}
+.legal-avoid { font-weight: 500; font-size: 14px; color: var(--red); }
+.legal-card-body { padding: 12px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.legal-field label {
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text3);
+  display: block;
+  margin-bottom: 3px;
+}
+.legal-field p { font-size: 13px; color: var(--text); }
+
+/* ── DEFS PAGE ── */
+.def-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 10px;
+}
+.def-term { font-weight: 500; font-size: 15px; color: var(--text); margin-bottom: 8px; }
+.def-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.def-field label {
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text3);
+  display: block;
+  margin-bottom: 3px;
+}
+.def-field p { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.def-conclusion { color: var(--green) !important; font-weight: 500; }
+
+
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main { padding: 1rem; }
+  .form-grid, .legal-card-body, .def-grid { grid-template-columns: 1fr; }
+  .logo { font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">Glosario<span>_</span>Spin</div>
+  <div class="header-search">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="globalSearch" placeholder="Buscar término, ejemplo, producto…" oninput="onSearch()">
+  </div>
+  <div class="header-actions">
+    <button class="btn-sm" onclick="toggleAI()" id="btnAI">✦ Consultar IA</button>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeaAk878QdAJqPrRTuIXyrBfnqhYTeUb9I9TRiEammV9lcnFQ/viewform" target="_blank" class="btn-sm" style="text-decoration:none">+ Proponer término</a>
+    <button class="btn-sm" onclick="exportCSV()">↓ CSV</button>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Secciones</div>
+      <button class="sidebar-btn active" onclick="showSection('glossary', this)">
+        <span class="dot dot-green"></span> Glosario A–Z <span class="count-pill" id="cnt-glossary">—</span>
+      </button>
+      <button class="sidebar-btn" onclick="showSection('definitions', this)">
+        <span class="dot dot-amber"></span> Definiciones <span class="count-pill" id="cnt-definitions">—</span>
+      </button>
+      <button class="sidebar-btn" onclick="showSection('legal', this)">
+        <span class="dot dot-red"></span> Riesgo legal <span class="count-pill" id="cnt-legal">—</span>
+      </button>
+      <button class="sidebar-btn" onclick="showSection('accessibility', this)">
+        <span class="dot dot-gray"></span> Accesibilidad <span class="count-pill" id="cnt-accessibility">—</span>
+      </button>
+    </div>
+    <hr class="sidebar-divider">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Filtrar por producto</div>
+      <button class="sidebar-btn active-filter" onclick="setProduct('all', this)">Todos los productos</button>
+      <button class="sidebar-btn" onclick="setProduct('Spin by OXXO', this)">Spin by OXXO</button>
+      <button class="sidebar-btn" onclick="setProduct('Spin Premia', this)">Spin Premia</button>
+      <button class="sidebar-btn" onclick="setProduct('Spin Negocios', this)">Spin Negocios</button>
+    </div>
+  </nav>
+
+  <main class="main" id="mainContent">
+    <!-- rendered by JS -->
+  </main>
+</div>
+
+<script>
+const DATA = {
+  glossary: [
+    ["abrir","aperturar","Abre tu cuenta Spin Premia / Spin by OXXO","Ambos","08/08/2024",""],
+    ["aclaraciones","reportes | solicitudes","Solicitar aclaración / Hablar con alguien del equipo","Ambos","08/08/2024",""],
+    ["activar tarjeta física","vincular a la cuenta","Activa tu tarjeta física para poder usarla","Solo Spin Premia","08/08/2024",""],
+    ["actividad | actividad reciente","operaciones | últimos movimientos","Consulta tu actividad reciente","Solo Spin Premia","08/08/2024",""],
+    ["acumular puntos","juntar puntos | generar puntos","Acumula puntos por tus compras","Spin by OXXO y Caliente en Spin Premia","08/08/2024",""],
+    ["alguien del equipo | persona del equipo","asesor | ejecutivo | representante","Una persona de nuestro equipo te responderá","Ambos","08/08/2024",""],
+    ["agregar","añadir","Agregar contacto","Ambos","08/08/2024",""],
+    ["al contado | de contado","en un pago","Pago de contado","Ambos","08/08/2024",""],
+    ["apagar tarjeta","desactivar tarjeta","Apaga tu tarjeta física","Solo Spin by OXXO","08/08/2024",""],
+    ["aplicación | app","plataforma","Descarga la aplicación","Ambos","08/08/2024",""],
+    ["Aprobada","Procedente","Aprobada con devolución / Rechazada sin devolución","Ambos","19/03/2025",""],
+    ["Aviso de privacidad","Aviso de Privacidad","Consulta el Aviso de privacidad","Ambos","08/08/2024",""],
+    ["banco","institución bancaria","¿Cuál es tu banco?","Ambos","08/08/2024",""],
+    ["persona beneficiaria","beneficiarios | favorecidos | receptores","Agrega tus personas beneficiarias","Ambos","08/08/2024",""],
+    ["bloquear la cuenta","desactivar la cuenta","Por tu seguridad bloqueamos tu cuenta","Ambos","08/08/2024",""],
+    ["campo obligatorio","campo necesario","Este es un campo obligatorio para continuar","Ambos","08/08/2024",""],
+    ["canjear","cambiar","Ya puedes canjear tu cupón en una tienda OXXO","Ambos","08/08/2024",""],
+    ["cargo no reconocido","comisión no reconocida | movimiento no reconocido","—","Ambos","08/08/2024",""],
+    ["Centro de atención","contact center | equipo de soporte","Llama al Centro de atención","Ambos","08/08/2024",""],
+    ["CLABE","clabe | cuenta CLABE","Copiaste tu CLABE","Ambos","20/02/2025",""],
+    ["código de verificación","OTP | código de validación","Te enviamos el código de verificación a tu número","Ambos","08/08/2024",""],
+    ["código QR | código de barras","Decir solo código","Escanea el código QR en caja","Ambos","20/08/2025",""],
+    ["comenzar","Empezar","Comienza por…","Ambos","08/08/2024",""],
+    ["comisión","cargo | interés","No tiene comisión","Ambos","18/03/2026","legal"],
+    ["completar | agregar","ingresar | escribir","Completa tus datos / Agrega tu nombre","Ambos","02/04/2025",""],
+    ["continuar","siguiente | seguir | avanzar","—","Ambos","08/08/2024",""],
+    ["correo electrónico | correo","Email / e-mail","Revisa tu correo electrónico","Ambos","08/08/2024",""],
+    ["correo no deseado","Spam","Revisa en tu correo no deseado","Ambos","08/08/2024",""],
+    ["costos","—","Consulta nuestros costos","Ambos","12/02/2025",""],
+    ["crear código (QR)","solicitar código | generar código","Crear código de depósito","Ambos","08/08/2024",""],
+    ["CURP","C.U.R.P.","La CURP / tu CURP","Ambos","08/08/2024",""],
+    ["CVV","Card Verification Value","Ingresa el CVV de tu Tarjeta virtual","Spin by OXXO","08/08/2024",""],
+    ["CVV dinámico","cvv dinámico | CVV Dinámico","El CVV de tu Tarjeta virtual solo dura unos minutos","Spin by OXXO","08/08/2024",""],
+    ["datos personales","información personal","Actualiza tus datos personales","Ambos","08/08/2024",""],
+    ["depositar | depósito","cargar dinero | meter dinero | fondear","¿A qué tarjeta quieres depositar?","Ambos","08/08/2024",""],
+    ["desbloquear la cuenta","desactivar la cuenta","Te enviaremos un correo con los pasos para desbloquear tu cuenta","Ambos","08/08/2024",""],
+    ["dinero / fondos","—","Deposita dinero a tu cuenta / Envía fondos a otro spinner","Spin by OXXO","14/11/2024","legal"],
+    ["elegir | elige","seleccionar | escoger","Elige una opción","Ambos","08/08/2024",""],
+    ["en línea | en internet","Online","Compras en línea","Ambos","08/08/2024",""],
+    ["Encender tarjeta","activar | descongelar | prender","Enciende tu tarjeta física","Solo Spin by OXXO","08/08/2024",""],
+    ["entendido | Genial","Ok","Para botones","Ambos","08/08/2024",""],
+    ["entrar","iniciar sesión | acceder | accesar","Entra a tu cuenta","Ambos","08/08/2024",""],
+    ["enviar (puntos | dinero | solicitud)","mandar | transferir | cobrar","Escribe la cantidad de puntos que quieres enviar","Ambos","08/08/2024",""],
+    ["envíos del exterior | fondos del exterior","remesas | dinero del extranjero","Para cobrar los fondos enviados del exterior…","Spin by OXXO","08/08/2024","legal"],
+    ["escanear","leer","Escanea el código QR","Ambos","08/08/2024",""],
+    ["estado de cuenta","factura | recibo en este contexto","Ya puedes ver tu estado de cuenta del periodo…","Ambos","08/08/2024",""],
+    ["estatus | estado","status","—","Ambos","08/08/2024",""],
+    ["identificación oficial","INE","Actualiza tu identificación oficial","Ambos","20/10/2025",""],
+    ["información","info","No pudimos mostrar la información","Ambos","08/08/2024",""],
+    ["iniciar aclaración","crear aclaración | levantar un reporte","¿Quieres iniciar una aclaración?","Ambos","08/08/2024",""],
+    ["intentar | Intentar de nuevo","reintentar","¿Quieres intentar de nuevo?","Ambos","08/08/2024",""],
+    ["ir al inicio","wallet | home | ver mi cuenta","Ir al inicio","Ambos","08/08/2024",""],
+    ["junta (tus compras)","acumula (tus compras)","Junta 8 compras para llevarte 1 de regalo","Spin Premia","08/08/2024",""],
+    ["liquidar pago","terminar de pagar","—","Ambos","08/08/2024",""],
+    ["marca participante","comercio | negocio | aliado | marca aliada","OXXO, OXXO GAS, Volaris son algunas marcas participantes","Spin Premia","08/08/2024",""],
+    ["mensaje de texto","SMS","¿Por WhatsApp o mensaje de texto?","Ambos","08/08/2024",""],
+    ["meses sin intereses","msi","—","Ambos","08/08/2024",""],
+    ["miOXXO app","MiOXXO app | mi OXXO app","App para acumular y canjear puntos Spin Premia","Spin Premia","08/08/2024",""],
+    ["monto (de dinero)","cantidad (de dinero)","Monto en pesos","Ambos","08/08/2024",""],
+    ["mostrar (más | código)","ver (más | código)","Mostrar más","Ambos","08/08/2024",""],
+    ["NetPay","Netpay | NETPAY","—","Spin Negocios","04/02/2025",""],
+    ["negocio","comercio | aliado | changarro","¡Haz crecer tu negocio!","Spin Negocios","01/04/2022",""],
+    ["no pudimos (completar tu pago)","no se completó tu pago","No pudimos mostrar la información","Ambos","08/08/2024",""],
+    ["número de celular","teléfono celular | celular | cel.","Escribe el número de celular registrado","Ambos","08/08/2024",""],
+    ["pagar (un servicio)","hacer | realizar el pago","Paga tu luz, agua y gas","Ambos","08/08/2024",""],
+    ["pasos","indicaciones | instrucciones","Comparte los pasos para que te envíen fondos","Ambos","26/09/2024",""],
+    ["persona del equipo","ejecutivo | asesor | representante","Una persona de nuestro equipo te responderá","Ambos","08/08/2024",""],
+    ["persona usuaria","usuario","Solo de manera interna","Ambos","08/08/2024",""],
+    ["pide","solicita","Pide tu tarjeta física","Ambos","29/08/2024",""],
+    ["Política de privacidad","Política de Privacidad","—","Ambos","06/09/2024",""],
+    ["preguntas frecuentes","FAQ's","Revisa en nuestras preguntas frecuentes","Ambos","08/08/2024",""],
+    ["primer apellido","apellido paterno","—","Ambos","08/08/2024",""],
+    ["programa de lealtad","programa de beneficios","—","Spin Premia","11/02/2025",""],
+    ["puntos Spin Premia","Puntos Premia | Puntos de Spin Premia","Usa tus puntos Spin Premia","Spin Premia","08/08/2024",""],
+    ["Rechazada","Improcedente","Rechazada sin devolución","Ambos","19/03/2025",""],
+    ["recibo","ticket | comprobante | resumen","Número de recibo","Ambos","08/08/2024",""],
+    ["reenviar (código)","enviar nuevamente","Espera 15 segundos para reenviar el código","Ambos","08/08/2024",""],
+    ["regresar | ir","volver","Ir al Inicio","Ambos","08/08/2024",""],
+    ["reporte","folio | ticket | seguimiento","número de reporte | reportar un error","Ambos","26/09/2024",""],
+    ["segundo apellido","apellido materno","—","Ambos","08/08/2024",""],
+    ["selfie","selfi | autofoto | foto de ti","Tómate una selfie","Ambos","08/08/2024",""],
+    ["Sexo","Género","Aparece así en INE y pasaporte","Ambos","16/02/2026",""],
+    ["sin costo","gratis para el core financiero","Renueva tu tarjeta sin costo","Ambos","11/03/2026",""],
+    ["Spin by OXXO","—","Cuenta de débito digital que incluye tarjeta","—","08/08/2024",""],
+    ["Spin Premia","Premia","Evitar Premia por implicaciones legales con Banamex","—","08/08/2024","legal"],
+    ["subir","cargar","Así podrás subir imágenes a tu aplicación","Ambos","08/08/2024",""],
+    ["tarjeta digital Spin Premia","tarjeta virtual Spin Premia","Escanea en caja tu tarjeta digital Spin Premia","Spin Premia","08/08/2024",""],
+    ["tarjeta física","plástico","Solicita tu tarjeta física en tiendas OXXO","Ambos","08/08/2024",""],
+    ["tarjeta sin datos","tarjeta infoless","Tu tarjeta sin datos","Spin by OXXO","27/08/2024",""],
+    ["Tarjeta vencida","Tarjeta expirada","Tu tarjeta vence el 28 de enero del 2025","Ambos","28/01/2025",""],
+    ["terminal de pago","terminal de cobro | dispositivo de cobro","Recibe tu terminal de pago","Spin Negocios","02/04/2025",""],
+    ["tiempo aire","—","Gana 3 puntos por cada $20 de recarga tiempo aire","Ambos","08/08/2024",""],
+    ["todo sobre (tu compra | tu pedido)","resumen | detalle","Todo sobre tu compra","Ambos","08/08/2024",""],
+    ["transacciones","movimientos cuando se habla de dinero","—","Ambos","08/08/2024",""],
+    ["transferir","mandar | mover dinero","8/11 personas favorecieron transferir en pruebas","Ambos","2026",""],
+    ["usar (puntos)","canjear | redimir (puntos)","Usa tus puntos","Spin Premia","08/08/2024",""],
+    ["valen","equivalen solo SbO","Tienes 200 puntos, valen $20.00","Solo Spin Premia","08/08/2024",""],
+    ["Vincular","Asociar | Unir | Ligar | Enlazar","Vincula tu cuenta Spin Premia","Ambos","24/03/2025",""],
+    ["volver a intentar | volver a cargar","reintentar solo en call out","—","Ambos","12/03/2025",""],
+    ["¿Olvidaste tu contraseña?","Olvidé mi contraseña | Recuperar contraseña","¿Olvidaste tu contraseña?","Ambos","02/07/2025",""],
+  ],
+  definitions: [
+    {term:"Recupera tus puntos",problem:"¿Qué tan cercano es 'Reclamar'?",conclusion:"'Recuperar' sugiere que los puntos ya son del usuario. 'Reclamar' puede sonar formal o implicar proceso complicado.",validation:"ChatGPT como indicador de cercanía",proposal:"Cambiar 'Reclamar' por 'Recuperar'",date:"24/01/2025"},
+    {term:"Programa de lealtad vs. beneficios",problem:"¿Cuál de los dos usamos?",conclusion:"Regresamos a 'programa de lealtad' al eliminar el componente de ahorro de tiempo de SbO.",validation:"Tania Paredes, Branding y Campaigns",proposal:"Programa de lealtad",date:"11/02/2025"},
+    {term:"Costos vs. Precios",problem:"¿Cuándo usar cada uno?",conclusion:"Costos = lo que cuesta elaborar o conseguir algo. Precios = en lo que lo vendes.",validation:"Por significado del término",proposal:"Usar según contexto",date:"12/02/2025"},
+    {term:"CLABE — sin Interbancaria",problem:"¿Decimos CLABE Interbancaria o solo CLABE?",conclusion:"Quedará sin 'Interbancaria' a petición de Producto Spin by OXXO.",validation:"—",proposal:"Solo CLABE",date:"20/02/2025"},
+    {term:"Adjetivo + sustantivo",problem:"¿Qué va primero?",conclusion:"Preferimos adjetivo + sustantivo: 'nueva solicitud'. Sustantivo + adjetivo solo para énfasis.",validation:"Gramática española",proposal:"Adjetivo primero como regla general",date:"27/02/2025"},
+    {term:"Tarjeta de crédito o débito",problem:"¿Qué va primero: débito o crédito?",conclusion:"'Tarjeta de crédito o débito' para Spin Premia y Negocios. Evita cacofonía.",validation:"—",proposal:"Tarjeta de crédito o débito",date:"27/02/2025"},
+    {term:"Aprobada / Rechazada",problem:"Reemplaza Procedente / Improcedente",conclusion:"Lenguaje más claro para resolución de aclaraciones de cargo no reconocido.",validation:"—",proposal:"Aprobada con devolución / Rechazada sin devolución",date:"19/03/2025"},
+    {term:"Sistema Punto de Venta",problem:"Diferenciación con Terminal Punto de Venta",conclusion:"Se agrega 'Sistema' para distinguirlo. Usuarios reconocen mejor esa palabra.",validation:"Evaluación de palabras: Herramienta, Sistema, Software",proposal:"Sistema Punto de Venta",date:"04/06/2025"},
+    {term:"Página web / sitio web / web",problem:"¿Qué usamos?",conclusion:"Página web = documento. Sitio web = colección de páginas. Web = ecosistema global.",validation:"Por significado del término",proposal:"Usar el término correcto según contexto",date:"19/08/2025"},
+    {term:"Rostro o cara",problem:"¿Qué usamos para biométricos?",conclusion:"'Cara' para instrucciones. 'Rostro' se descarta. Face ID / Touch ID en iOS, Reconocimiento facial en Android.",validation:"Benchmark iPhone y Android",proposal:"Cara (instrucciones) / Reconocimiento facial (Android)",date:"14/08/2025"},
+    {term:"Transferir",problem:"¿Qué usamos para movimiento de dinero?",conclusion:"Pruebas quali y quanti lo validaron. 8/11 personas favorecieron 'transferir'.",validation:"Reporte quanti Maze + usabilidad feb 2026",proposal:"Transferir",date:"2026"},
+    {term:"Sin costo / Costo $0 / Gratis",problem:"¿Cuándo usar cada uno?",conclusion:"Core financiero: 'sin costo' o '$0'. Incentivos comerciales externos: evaluar 'gratis' caso por caso.",validation:"—",proposal:"Sin costo / $0 para core; evaluar gratis para promos",date:"2026"},
+    {term:"Sexo o Género",problem:"¿Cuál usamos en formularios?",conclusion:"'Sexo' porque así aparece en INE y pasaporte. No excluye a nadie.",validation:"—",proposal:"Sexo",date:"16/02/2026"},
+    {term:"Dinero en transferencias",problem:"¿Podemos decir 'dinero' al transferir?",conclusion:"Para transferir NO se usa 'dinero'. Para recibir SÍ se usa.",validation:"Con Legal",proposal:"Fondos (en cuenta) / dinero (fuera de cuenta)",date:"05/08/2025"},
+    {term:"cuenta Spin Premia / SbO / OXXO CEL",problem:"Identificación en backoffice",conclusion:"Usar 'cuenta [nombre del producto]' para todos los casos.",validation:"Alineación con SbO y OXXO CEL",proposal:"cuenta Spin Premia / cuenta Spin by OXXO / cuenta OXXO CEL",date:"11/12/2025"},
+  ],
+  legal: [
+    {avoid:"ganar puntos Spin Premia",reason:"Conforme los TyC del Programa, las palabras correctas son 'obtener' o 'acumular'.",use:"Obtener / acumular",area:"Legal / Producto"},
+    {avoid:"servicios domiciliados / domiciliar",reason:"'Domiciliación' es figura jurídica regulada. No aplica a esta funcionalidad.",use:"Pagos automáticos / pagos programados",area:"Legal / Omnichannel"},
+    {avoid:"dinero (en la cuenta)",reason:"Como IFPE solo tenemos autorización para emitir y administrar fondos de pago electrónico.",use:"Fondos (dentro de la cuenta)",area:"Legal"},
+    {avoid:"recibir dinero de otro país",reason:"No tenemos permiso o autorización de transmisor de dinero.",use:"Recibir fondos del exterior",area:"Legal"},
+    {avoid:"dinero del extranjero / del exterior",reason:"No tenemos permiso o autorización de transmisor de dinero.",use:"Fondos del exterior / fondos de EUA",area:"Legal"},
+    {avoid:"remesa",reason:"No tenemos el permiso o autorización.",use:"Envío del exterior / envío de EUA",area:"Legal"},
+    {avoid:"tus puntos valen",reason:"Los puntos SP no valen dinero ni funcionan como moneda; tienen paridad para ser redimidos.",use:"Tus puntos equivalen",area:"Legal / Producto"},
+    {avoid:"cobro",reason:"SbO no presta servicios de cobro o procesamiento de pagos conforme su objeto social.",use:"Recibir",area:"Legal"},
+    {avoid:"canjear puntos",reason:"Conforme TyC del Programa.",use:"Usar o redimir puntos",area:"Legal"},
+    {avoid:"interés",reason:"Al ser IFPE en México no podemos usar el término 'interés'.",use:"Comisión",area:"Legal / Regulatorio"},
+    {avoid:"Premia (sin Spin)",reason:"Implicaciones legales con el programa de lealtad de Banamex.",use:"Spin Premia (siempre con Spin)",area:"Legal"},
+  ],
+  accessibility: [
+    ["mostrar","ver","Mostrar más","17/07/2025"],
+    ["agregar | completar","escribir","Completa tus datos","17/07/2025"],
+    ["desde la app | en la app","aquí | en esta pantalla | en este botón","Encuéntralo desde la app","17/07/2025"],
+    ["describir la acción","aquí como texto de enlace","Consulta el Aviso de privacidad (no: haz clic aquí)","17/07/2025"],
+  ],
+};
+
+let currentSection = 'glossary';
+let currentProduct = 'all';
+let searchQuery = '';
+
+function onSearch() {
+  searchQuery = document.getElementById('globalSearch').value.toLowerCase();
+  renderSection();
+}
+
+function showSection(sec, btn) {
+  currentSection = sec;
+  document.querySelectorAll('.sidebar-btn').forEach(b => {
+    if (['all','Spin by OXXO','Spin Premia','Spin Negocios'].includes(b.dataset.prod)) return;
+    b.classList.remove('active');
+  });
+  if (btn) btn.classList.add('active');
+  renderSection();
+}
+
+function setProduct(prod, btn) {
+  currentProduct = prod;
+  document.querySelectorAll('.sidebar-btn[data-prod]').forEach(b => b.classList.remove('active'));
+  if (btn) { btn.dataset.prod = prod; btn.classList.add('active'); }
+  renderSection();
+}
+
+document.querySelectorAll('.sidebar-btn').forEach((b, i) => {
+  if (i >= 6) b.dataset.prod = ['all','Spin by OXXO','Spin Premia','Spin Negocios'][i-6];
+});
+
+function updateCounts() {
+  document.getElementById('cnt-glossary').textContent = DATA.glossary.length;
+  document.getElementById('cnt-definitions').textContent = DATA.definitions.length;
+  document.getElementById('cnt-legal').textContent = DATA.legal.length;
+  document.getElementById('cnt-accessibility').textContent = DATA.accessibility.length;
+}
+
+function filterGlossary() {
+  return DATA.glossary.filter(r => {
+    const matchQ = !searchQuery || (r[0]+r[1]+r[2]+r[3]).toLowerCase().includes(searchQuery);
+    const matchP = currentProduct === 'all' || r[3].toLowerCase().includes(currentProduct.toLowerCase()) || r[3] === 'Ambos' || r[3] === '—';
+    return matchQ && matchP;
+  });
+}
+
+function renderSection() {
+  updateCounts();
+  const main = document.getElementById('mainContent');
+
+  if (currentSection === 'glossary') renderGlossary(main);
+  else if (currentSection === 'definitions') renderDefinitions(main);
+  else if (currentSection === 'legal') renderLegal(main);
+  else if (currentSection === 'accessibility') renderAccessibility(main);
+}
+
+function renderGlossary(main) {
+  const rows = filterGlossary();
+  main.innerHTML = `
+    <div class="section-header">
+      <span class="section-title">Glosario A–Z</span>
+      <span class="section-count">${rows.length} términos</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:22%">Usamos</th>
+            <th style="width:22%">Evitamos</th>
+            <th style="width:32%">¿Cómo usarlo?</th>
+            <th style="width:13%">Aplica a</th>
+            <th style="width:11%">Actualización</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.length === 0 ? '<tr><td colspan="5"><div class="empty">Sin resultados para esa búsqueda.</div></td></tr>' :
+            rows.map(r => `<tr class="${r[5] === 'legal' ? 'legal-row' : ''}">
+              <td><span class="term">${r[0]}</span>${r[5] === 'legal' ? ' <span class="tag tag-legal">⚠ legal</span>' : ''}</td>
+              <td><span class="avoid">${r[1]}</span></td>
+              <td><span class="example">${r[2]}</span></td>
+              <td><span class="tag">${r[3]}</span></td>
+              <td><span class="date">${r[4]}</span></td>
+            </tr>`).join('')
+          }
+        </tbody>
+      </table>
+    </div>`;
+}
+
+function renderDefinitions(main) {
+  const items = DATA.definitions.filter(d =>
+    !searchQuery || (d.term+d.conclusion+d.proposal).toLowerCase().includes(searchQuery)
+  );
+  main.innerHTML = `
+    <div class="section-header">
+      <span class="section-title">Definiciones y mejoras</span>
+      <span class="section-count">${items.length} entradas</span>
+    </div>
+    ${items.map(d => `<div class="def-card">
+      <div class="def-term">${d.term} <span class="tag tag-def" style="font-size:10px;vertical-align:middle">${d.date}</span></div>
+      <div class="def-grid">
+        <div class="def-field"><label>Problema / discusión</label><p>${d.problem}</p></div>
+        <div class="def-field"><label>¿Cómo se validó?</label><p>${d.validation}</p></div>
+        <div class="def-field"><label>Conclusión</label><p class="def-conclusion">${d.conclusion}</p></div>
+        <div class="def-field"><label>Propuesta / mejora</label><p>${d.proposal}</p></div>
+      </div>
+    </div>`).join('')}`;
+}
+
+function renderLegal(main) {
+  const items = DATA.legal.filter(d =>
+    !searchQuery || (d.avoid+d.reason+d.use).toLowerCase().includes(searchQuery)
+  );
+  main.innerHTML = `
+    <div class="section-header">
+      <span class="section-title">Riesgo legal</span>
+      <span class="section-count">${items.length} términos</span>
+    </div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:1.5rem;line-height:1.6">Palabras con implicaciones legales para Spin como IFPE. Consulta siempre esta sección antes de escribir sobre remesas, fondos, intereses o cobros.</p>
+    ${items.map(d => `<div class="legal-card">
+      <div class="legal-card-header">
+        <span style="font-size:16px">🚫</span>
+        <div>
+          <div class="legal-avoid">${d.avoid}</div>
+          <div style="font-size:11px;color:var(--red);opacity:.7;font-family:'DM Mono',monospace">${d.area}</div>
+        </div>
+      </div>
+      <div class="legal-card-body">
+        <div class="legal-field"><label>Justificación legal</label><p>${d.reason}</p></div>
+        <div class="legal-field"><label>Usamos en su lugar ✅</label><p style="font-weight:500;color:var(--green)">${d.use}</p></div>
+      </div>
+    </div>`).join('')}`;
+}
+
+function renderAccessibility(main) {
+  const rows = DATA.accessibility.filter(r =>
+    !searchQuery || (r[0]+r[1]+r[2]).toLowerCase().includes(searchQuery)
+  );
+  main.innerHTML = `
+    <div class="section-header">
+      <span class="section-title">Accesibilidad</span>
+      <span class="section-count">${rows.length} términos</span>
+    </div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:1.5rem">Términos con consideraciones específicas para personas con discapacidad visual o lectores de pantalla.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th style="width:25%">Usamos</th>
+          <th style="width:25%">Evitamos</th>
+          <th style="width:38%">¿Cómo usarlo?</th>
+          <th style="width:12%">Actualización</th>
+        </tr></thead>
+        <tbody>
+          ${rows.map(r => `<tr>
+            <td><span class="term">${r[0]}</span></td>
+            <td><span class="avoid">${r[1]}</span></td>
+            <td><span class="example">${r[2]}</span></td>
+            <td><span class="date">${r[3]}</span></td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+}
+
+
+function toggleAI() {
+  const panel = document.getElementById('aiPanel');
+  if (panel) {
+    panel.classList.toggle('open');
+    document.getElementById('btnAI').classList.toggle('active');
+  } else {
+    showSection('glossary', document.querySelector('.sidebar-btn'));
+    setTimeout(() => {
+      const p = document.getElementById('aiPanel');
+      if (p) { p.classList.add('open'); document.getElementById('btnAI').classList.add('active'); }
+    }, 50);
+  }
+}
+
+
+
+
+async function askAI() {
+  const q = document.getElementById('aiInput').value.trim();
+  if (!q) return;
+  const btn = document.getElementById('btnAsk');
+  const resp = document.getElementById('aiResponse');
+  btn.disabled = true; btn.textContent = '…';
+  resp.classList.add('visible'); resp.textContent = 'Consultando el glosario…';
+  const ctx = DATA.glossary.map(r => `TÉRMINO: ${r[0]} | EVITAR: ${r[1]} | EJEMPLO: ${r[2]} | APLICA A: ${r[3]}`).join('\n');
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: `Eres el asistente del Glosario Transversal de Spin by OXXO y Spin Premia, fintech mexicana. Responde preguntas sobre terminología usando el glosario. Si un término tiene riesgo legal, menciónalo con ⚠️. Sé conciso. Responde en español.\n\nGLOSARIO:\n${ctx}`,
+        messages: [{ role: 'user', content: q }]
+      })
+    });
+    const d = await res.json();
+    resp.textContent = d.content?.[0]?.text || 'Sin respuesta.';
+  } catch(e) { resp.textContent = 'Error al consultar. Inténtalo de nuevo.'; }
+  btn.disabled = false; btn.textContent = 'Preguntar';
+}
+
+function exportCSV() {
+  const headers = ['Usamos','Evitamos','Cómo usarlo','Aplica a','Última actualización','Riesgo legal'];
+  const rows = DATA.glossary.map(r => r.map(v => `"${String(v).replace(/"/g,'\"')}"` ).join(','));
+  const csv = '\uFEFF' + [headers.join(','), ...rows].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'glosario-spin.csv'; a.click();
+}
+
+renderSection();
+</script>
+</body>
+</html>
