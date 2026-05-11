@@ -475,7 +475,7 @@ tr.legal-row:hover td { background: #FFF7ED; }
   </div>
   <div class="header-actions">
     <button class="btn-sm" onclick="toggleAI()" id="btnAI">✦ Consultar IA</button>
-    <button class="btn-sm" onclick="toggleAdd()" id="btnAdd">+ Agregar</button>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeaAk878QdAJqPrRTuIXyrBfnqhYTeUb9I9TRiEammV9lcnFQ/viewform" target="_blank" class="btn-sm" style="text-decoration:none">+ Proponer término</a>
     <button class="btn-sm" onclick="exportCSV()">↓ CSV</button>
   </div>
 </header>
@@ -496,9 +496,9 @@ tr.legal-row:hover td { background: #FFF7ED; }
       <button class="sidebar-btn" onclick="showSection('accessibility', this)">
         <span class="dot dot-gray"></span> Accesibilidad <span class="count-pill" id="cnt-accessibility">—</span>
       </button>
-      <button class="sidebar-btn" onclick="showSection('pending', this)">
-        <span class="dot dot-amber"></span> Pendientes <span class="count-pill" id="cnt-pending">—</span>
-      </button>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeaAk878QdAJqPrRTuIXyrBfnqhYTeUb9I9TRiEammV9lcnFQ/viewform" target="_blank" class="sidebar-btn" style="text-decoration:none">
+        <span class="dot dot-amber"></span> Proponer término ↗
+      </a>
     </div>
     <hr class="sidebar-divider">
     <div class="sidebar-section">
@@ -885,17 +885,7 @@ function toggleAI() {
 }
 
 function toggleAdd() {
-  const panel = document.getElementById('addPanel');
-  if (panel) {
-    panel.classList.toggle('open');
-    document.getElementById('btnAdd').classList.toggle('active');
-  } else {
-    showSection('glossary', document.querySelector('.sidebar-btn'));
-    setTimeout(() => {
-      const p = document.getElementById('addPanel');
-      if (p) { p.classList.add('open'); document.getElementById('btnAdd').classList.add('active'); }
-    }, 50);
-  }
+  window.open('https://docs.google.com/forms/d/e/1FAIpQLSeaAk878QdAJqPrRTuIXyrBfnqhYTeUb9I9TRiEammV9lcnFQ/viewform', '_blank');
 }
 
 function saveNew() {
